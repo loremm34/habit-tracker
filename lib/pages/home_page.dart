@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/components/habit_title.dart';
 import 'package:habit_tracker/components/my_floating_action_button.dart';
-import 'package:habit_tracker/components/enter_new_habit_box.dart';
+import 'package:habit_tracker/components/dialog_habit_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,7 +30,7 @@ class _HomePage extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) {
-        return EnterNewHabitBox(
+        return DialogHabitBox(
           controller: _newHabitNameController,
           save: saveNewHabit,
           cancel: cancelNewHabit,
@@ -51,6 +51,31 @@ class _HomePage extends State<HomePage> {
     Navigator.of(context).pop();
   }
 
+  void openHabitSettings(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DialogHabitBox(
+          controller: _newHabitNameController,
+          save: () => saveExistingHabit(index),
+          cancel: cancelNewHabit,
+        );
+      },
+    );
+  }
+
+  void saveExistingHabit(int index) {
+    todaysHabitList[index][0] = _newHabitNameController.text;
+    setState(() {});
+    _newHabitNameController.clear();
+    Navigator.of(context).pop();
+  }
+
+  void deleteHabit(int index) {
+    todaysHabitList.removeAt(index);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,9 +85,12 @@ class _HomePage extends State<HomePage> {
         itemCount: todaysHabitList.length,
         itemBuilder: (context, index) {
           return HabitTitle(
-              habitName: todaysHabitList[index][0],
-              habitCompleted: todaysHabitList[index][1],
-              onChanged: (value) => onTappedCheckBox(value, index));
+            habitName: todaysHabitList[index][0],
+            habitCompleted: todaysHabitList[index][1],
+            onChanged: (value) => onTappedCheckBox(value, index),
+            settingsTapped: (context) => openHabitSettings(index),
+            deleteTapped: (context) => deleteHabit(index),
+          );
         },
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EnterNewHabitBox extends StatelessWidget {
-  EnterNewHabitBox(
+class DialogHabitBox extends StatelessWidget {
+  DialogHabitBox(
       {super.key,
       required this.controller,
       required this.save,
