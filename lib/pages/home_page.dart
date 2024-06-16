@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/components/habit_title.dart';
+import 'package:habit_tracker/components/my_floating_action_button.dart';
+import 'package:habit_tracker/components/enter_new_habit_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +15,8 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   List todaysHabitList = [
     ["Morning run", false],
-    ["Shower", false]
+    ["Shower", false],
+    ["Code App", false]
   ];
 
   void onTappedCheckBox(bool? value, int index) {
@@ -21,10 +24,33 @@ class _HomePage extends State<HomePage> {
     setState(() {});
   }
 
+  final _newHabitNameController = TextEditingController();
+
+  void createNewHabit() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return EnterNewHabitBox(
+          controller: _newHabitNameController,
+          save: saveNewHabit,
+          cancel: cancelNewHabit,
+        );
+      },
+    );
+  }
+
+  void saveNewHabit() {}
+
+  void cancelNewHabit() {
+    _newHabitNameController.clear();
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
+      floatingActionButton: MyFloatingActionButton(onPressed: createNewHabit),
       body: ListView.builder(
         itemCount: todaysHabitList.length,
         itemBuilder: (context, index) {
