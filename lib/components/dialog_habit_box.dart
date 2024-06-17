@@ -5,11 +5,13 @@ class DialogHabitBox extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.save,
-      required this.cancel});
+      required this.cancel,
+      required this.hintText});
 
   final controller;
   final void Function() save;
   final void Function() cancel;
+  final String hintText;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -17,6 +19,10 @@ class DialogHabitBox extends StatelessWidget {
       content: TextField(
         style: TextStyle(color: Colors.white),
         controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.white),
+        ),
       ),
       actions: [
         MaterialButton(

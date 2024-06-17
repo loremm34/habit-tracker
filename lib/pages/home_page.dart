@@ -33,6 +33,7 @@ class _HomePage extends State<HomePage> {
         return DialogHabitBox(
           controller: _newHabitNameController,
           save: saveNewHabit,
+          hintText: "Enter new habit",
           cancel: cancelNewHabit,
         );
       },
@@ -59,6 +60,7 @@ class _HomePage extends State<HomePage> {
           controller: _newHabitNameController,
           save: () => saveExistingHabit(index),
           cancel: cancelNewHabit,
+          hintText: todaysHabitList[index][0],
         );
       },
     );
