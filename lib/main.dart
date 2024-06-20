@@ -4,10 +4,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   // Говорим что будем использовать hive
-  await Hive.initFlutter();
+  Hive.initFlutter();
 
   // открываем котнейнер для хранения данных
-  Hive.openBox("Habit_Database");
+  await Hive.openBox("Habit_Database");
   runApp(const MyApp());
 }
 
