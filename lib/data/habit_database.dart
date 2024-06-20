@@ -30,5 +30,9 @@ class HabitDatabase {
   }
 
   // обновляем
-  void updateDatabase() {}
+  void updateDatabase() {
+    _habitDatabase.put(todaysDateFormatted(), todaysHabitList);
+
+    _habitDatabase.put("CURRENT_HABIT_LIST", todaysHabitList);
+  }
 }

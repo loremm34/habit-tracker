@@ -48,18 +48,22 @@ class _HomePage extends State<HomePage> {
         );
       },
     );
+    db.updateDatabase();
   }
 
   void saveNewHabit() {
     db.todaysHabitList.add([_newHabitNameController.text, false]);
-    setState(() {});
+
     _newHabitNameController.clear();
     Navigator.of(context).pop();
+    db.updateDatabase();
+    setState(() {});
   }
 
   void cancelNewHabit() {
     _newHabitNameController.clear();
     Navigator.of(context).pop();
+    db.updateDatabase();
   }
 
   void openHabitSettings(int index) {
@@ -81,11 +85,13 @@ class _HomePage extends State<HomePage> {
     setState(() {});
     _newHabitNameController.clear();
     Navigator.of(context).pop();
+    db.updateDatabase();
   }
 
   void deleteHabit(int index) {
     db.todaysHabitList.removeAt(index);
     setState(() {});
+    db.updateDatabase();
   }
 
   @override
