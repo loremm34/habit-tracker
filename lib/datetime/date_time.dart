@@ -40,6 +40,7 @@ String convertDateTimeToString(DateTime dateTime) {
     day = '0$day';
   }
 
+  // final format
   String yyyymmdd = year + month + day;
 
   return yyyymmdd;

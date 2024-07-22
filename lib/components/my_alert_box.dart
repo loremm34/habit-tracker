@@ -1,43 +1,49 @@
 import 'package:flutter/material.dart';
 
-class DialogHabitBox extends StatelessWidget {
-  const DialogHabitBox(
-      {super.key,
-      required this.controller,
-      required this.save,
-      required this.cancel,
-      required this.hintText});
-
+class MyAlertBox extends StatelessWidget {
   final TextEditingController controller;
-  final void Function() save;
-  final void Function() cancel;
   final String hintText;
+  final VoidCallback onSave;
+  final VoidCallback onCancel;
+
+  const MyAlertBox({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.onSave,
+    required this.onCancel,
+  });
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.grey[900],
       content: TextField(
-        style: const TextStyle(color: Colors.white),
         controller: controller,
+        style: const TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.white),
+          hintStyle: TextStyle(color: Colors.grey[600]),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)),
         ),
       ),
       actions: [
         MaterialButton(
-          onPressed: cancel,
+          onPressed: onSave,
           color: Colors.black,
           child: const Text(
-            "Cancel",
+            "Save",
             style: TextStyle(color: Colors.white),
           ),
         ),
         MaterialButton(
-          onPressed: save,
+          onPressed: onCancel,
           color: Colors.black,
           child: const Text(
-            "Save",
+            "Cancel",
             style: TextStyle(color: Colors.white),
           ),
         ),
